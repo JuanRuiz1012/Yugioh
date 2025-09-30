@@ -1,5 +1,6 @@
 # Yugioh 
 ---
 ## Miembros
+---
 #### JUAN FELIPE RUIZ LOPEZ  2359397 - 3743
 #### JUAN ALEJANDRO MENESES DE LA TORRE  2359303 - 2724
