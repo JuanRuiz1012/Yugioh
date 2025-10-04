@@ -31,12 +31,12 @@ public class Stadium extends JFrame implements BattleListener {
     private JPanel panelTitulo;
     private JLabel labelTitulo;
 
-    // Atributos para la lógica del duelo (no cambian nombres de los del form)
+    // Atributos para la lógica del duelo
     private YgoApiClient apiClient = new YgoApiClient();
     private Duel duel;
     private List<Card> playerCards = new ArrayList<>();
     private List<Card> aiCards = new ArrayList<>();
-    private List<Boolean> playerCardsUsed = new ArrayList<>();  // Para rastrear cartas usadas (opcional, para robustez)
+    private List<Boolean> playerCardsUsed = new ArrayList<>();  // Para rastrear cartas usadas
 
     public Stadium() {
         setContentPane(panel1);
@@ -45,11 +45,11 @@ public class Stadium extends JFrame implements BattleListener {
         setSize(1100, 550);
         setLocationRelativeTo(null);
 
-        initializeUI();  // Configurar listeners y UI inicial
+        initializeUI();  // Configura listeners y UI inicial
     }
 
     private void initializeUI() {
-        // Configurar textArea (editable false, texto inicial)
+        // Configurar textArea
         textArea.setEditable(false);
         textArea.setText("Bienvenido al Duelo de Yu-Gi-Oh!. Presiona 'Iniciar Duelo' para comenzar.\n");
 
@@ -117,7 +117,7 @@ public class Stadium extends JFrame implements BattleListener {
     }
 
     private void showPlayerCards() {
-        // Asignar cartas a botones específicos y habilitar solo si no usadas
+        // Asignar cartas a botones específicos
         if (playerCards.size() >= 3) {
             setupCardButton(carta1, playerCards.get(0), 0);
             setupCardButton(carta2, playerCards.get(1), 1);
@@ -128,7 +128,7 @@ public class Stadium extends JFrame implements BattleListener {
     }
 
     private void showAiCards() {
-        // Mostrar cartas de AI en botones rivales (solo texto e imágenes, sin interacción)
+        // Mostrar cartas de AI en botones rivales
         if (aiCards.size() >= 3) {
             setupAiCardButton(cartaRival1, aiCards.get(0));
             setupAiCardButton(cartaRival2, aiCards.get(1));
@@ -141,7 +141,7 @@ public class Stadium extends JFrame implements BattleListener {
 
     private void setupCardButton(JButton button, Card card, int index) {
         boolean isUsed = playerCardsUsed.get(index);
-        button.setEnabled(!isUsed);  // Habilitar solo si no usada
+        button.setEnabled(!isUsed);
         button.setText("<html>" + card.getName() + "<br>ATK: " + card.getAtk() + " DEF: " + card.getDef() + (isUsed ? " (Usada)" : "") + "</html>");
         try {
             ImageIcon icon = new ImageIcon(new URL(card.getImageUrl()));
@@ -151,13 +151,13 @@ public class Stadium extends JFrame implements BattleListener {
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             button.setPreferredSize(new Dimension(120, 180));  // Tamaño fijo para mejor visualización
         } catch (Exception e) {
-            // Ignorar error de imagen (usa solo texto)
+            // Ignorar error de imagen
             System.err.println("Error cargando imagen para carta: " + card.getName());
         }
     }
 
     private void setupAiCardButton(JButton button, Card card) {
-        button.setEnabled(false);  // No interactivo
+        button.setEnabled(false);
         button.setText("<html>" + card.getName() + "<br>ATK: " + card.getAtk() + " DEF: " + card.getDef() + "</html>");
         try {
             ImageIcon icon = new ImageIcon(new URL(card.getImageUrl()));
@@ -180,10 +180,10 @@ public class Stadium extends JFrame implements BattleListener {
         }
 
         Card selectedCard = playerCards.get(index);
-        playerCardsUsed.set(index, true);  // Marcar como usada
+        playerCardsUsed.set(index, true);  // Marcar como  carta usada
         duel.playTurn(selectedCard);
 
-        // Deshabilitar SOLO este botón (no los otros, para permitir más turnos)
+        // Se deshabilita este botón ( para permitir más turnos)
         switch (index) {
             case 0 -> carta1.setEnabled(false);
             case 1 -> carta2.setEnabled(false);
@@ -196,7 +196,7 @@ public class Stadium extends JFrame implements BattleListener {
         textArea.append("Carta seleccionada: " + selectedCard.getName() + ". Esperando resultado del turno...\n");
         textArea.setCaretPosition(textArea.getDocument().getLength());
 
-        // Verificar si todas las cartas del jugador están usadas (opcional: auto-fin si es el caso)
+        // Verifica si todas las cartas del jugador están usadas
         if (playerCardsUsed.stream().allMatch(Boolean::booleanValue)) {
             textArea.append("¡Has usado todas tus cartas! El duelo continúa con la IA.\n");
         }
@@ -228,23 +228,24 @@ public class Stadium extends JFrame implements BattleListener {
         panelRival.repaint();
     }
 
-    // Métodos de BattleListener (implementados para notificaciones en textArea)
+    // Métodos de BattleListener
     @Override
     public void onTurn(String playerCard, String aiCard, String winner) {
-        String msg = String.format("Turno: Jugador usó %s, Máquina usó %s. ", playerCard, aiCard);
+        String resultado;
         if ("player".equals(winner)) {
-            msg += "¡Ganaste el turno!";
+            resultado = " ¡Ganaste el turno!";
         } else if ("ai".equals(winner)) {
-            msg += "La máquina ganó el turno.";
+            resultado = " La máquina ganó el turno.";
         } else {
-            msg += "Empate en el turno.";
+            resultado = " Empate en el turno.";
         }
-        textArea.append(msg + "\n");
-        textArea.setCaretPosition(textArea.getDocument().getLength());  // Auto-scroll
 
-        // Opcional: Re-habilitar botones si el Duel lo requiere (pero no es necesario aquí)
-        // showPlayerCards();  // Si necesitas actualizar visual después de cada turno
+        textArea.append(String.format(
+                " %-10s | %-25s | %-25s | %s%n",
+                "Turno", "Jugador: " + playerCard, "Máquina: " + aiCard, resultado
+        ));
     }
+
 
     @Override
     public void onScoreChanged(int playerScore, int aiScore) {
@@ -258,7 +259,7 @@ public class Stadium extends JFrame implements BattleListener {
         textArea.setCaretPosition(textArea.getDocument().getLength());
         JOptionPane.showMessageDialog(this, "El duelo terminó. Ganador: " + winner, "Duelo Finalizado", JOptionPane.INFORMATION_MESSAGE);
         botonInicio.setEnabled(true);
-        // Deshabilitar todos los botones y limpiar para nuevo duelo
+        // se desabilita todos los botones y se limpia para nuevo duelo
         carta1.setEnabled(false);
         carta2.setEnabled(false);
         carta3.setEnabled(false);
@@ -267,7 +268,7 @@ public class Stadium extends JFrame implements BattleListener {
         playerCardsUsed.clear();
     }
 
-    // Método público para reiniciar (opcional, si necesitas desde fuera)
+    // Método público para reiniciar
     public void resetDuel() {
         playerCards.clear();
         aiCards.clear();
