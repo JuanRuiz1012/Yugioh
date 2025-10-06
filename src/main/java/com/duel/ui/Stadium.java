@@ -67,7 +67,7 @@ public class Stadium extends JFrame implements BattleListener {
         textArea.setFont(new Font("Consolas", Font.PLAIN, 16));
         textArea.setBackground(new Color(20, 20, 20));
         textArea.setForeground(new Color(0, 220, 0));
-        textArea.setText("Bienvenido a Yu-Gi-Oh!. Presiona 'Iniciar Duelo' para comenzar.\n");
+        textArea.setText("Bienvenido a Yu-Gi-Oh!. Presiona 'Elegir Carta' para comenzar.\n");
 
         // Botón de inicio con estilo
         botonInicio.setBackground(new Color(220, 20, 60));
