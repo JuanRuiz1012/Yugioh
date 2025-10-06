@@ -21,6 +21,8 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-498875"/>
+              <font name="Courier New" size="16" style="1"/>
               <text value="Elegir Cartas"/>
             </properties>
           </component>
@@ -64,12 +66,15 @@
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-498875"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="9fad2" class="javax.swing.JTextArea" binding="textArea">
             <constraints/>
             <properties>
+              <background color="-11161"/>
               <text value=""/>
             </properties>
           </component>
@@ -114,7 +119,9 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-11161"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="32299" class="javax.swing.JLabel" binding="labelTitulo">
@@ -122,6 +129,8 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-11161"/>
+              <font name="Courier New" size="16" style="1"/>
               <text value="YU-GI-OH JuanRuiz AlejandroMeneses"/>
             </properties>
           </component>
