@@ -19,7 +19,7 @@
 ### A nivel de código, se sigue una organización modular en la que las clases se dividen según su responsabilidad (cartas, lógica del duelo, interfaz). Esto favorece la mantenibilidad y facilita futuras ampliaciones, 
 ### como agregar nuevas cartas o mejorar la interfaz gráfica.
 
-![imagen 1](imagenes/imagen1.png)
-![imagen 2](imagenes/imagen2.png)
-![imagen 3](imagenes/imagen3.png)
-![imagen 4](imagenes/imagen4.png)
+![imagen 1](imagenes/Imagen1.png)
+![imagen 2](imagenes/Imagen2.png)
+![imagen 3](imagenes/Imagen3.png)
+![imagen 4](imagenes/Imagen4.png)
